@@ -4,13 +4,22 @@ import 'package:equatable/equatable.dart';
 import 'package:loginbloc/model/user.dart';
 
 class LoginState extends Equatable {
-  const LoginState({this.users = const <User>[], this.isLogin = false});
+  const LoginState({
+    this.users = const <User>[],
+    this.isLogin = false,
+    this.isSignUp = false,
+  });
   final List<User> users;
   final bool isLogin;
+  final bool isSignUp;
   @override
-  List<Object> get props => [users, isLogin];
+  List<Object> get props => [users, isLogin, isSignUp];
 
-  LoginState copyWith({List<User>? users}) {
-    return LoginState(users: users ?? this.users, isLogin: isLogin);
+  LoginState copyWith({List<User>? users, bool? isLogin, bool? isSignUp}) {
+    return LoginState(
+      users: users ?? this.users,
+      isLogin: isLogin ?? this.isLogin,
+      isSignUp: isSignUp ?? this.isSignUp,
+    );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 
 class LoginEvent extends Equatable {
@@ -10,8 +12,13 @@ class LoginEvent extends Equatable {
 class SignupPressedEvent extends LoginEvent {
   final String valueId;
   final String password;
+  final Completer<bool> completer;
 
-  const SignupPressedEvent({required this.valueId, required this.password});
+  const SignupPressedEvent({
+    required this.valueId,
+    required this.password,
+    required this.completer,
+  });
 
   @override
   List<Object> get props => [valueId, password];

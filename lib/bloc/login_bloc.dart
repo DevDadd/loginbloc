@@ -9,7 +9,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<SignupPressedEvent>(signup);
     on<LoginPressedEvent>(login);
   }
-  Future<bool> signup(
+  Future<void> signup(
     SignupPressedEvent event,
     Emitter<LoginState> emit,
   ) async {
@@ -21,10 +21,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
     if (!isAdded) {
       final newUser = User(account: event.valueId, password: event.password);
-      final updatedUsers = List<User>.from(state.users)..add(newUser);
-      emit(state.copyWith(users: updatedUsers));
+      emit(state.copyWith(users: [...state.users, newUser]));
+      return event.completer.complete(true);
     }
-    return isAdded;
+    return event.completer.complete(false);
   }
 
   Future<bool> login(LoginPressedEvent event, Emitter<LoginState> emit) async {
